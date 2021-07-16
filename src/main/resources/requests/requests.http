@@ -1,18 +1,17 @@
-GET http://localhost/site
-
+GET http://localhost/users
 
 ###
 
-POST http://localhost/site
+POST http://localhost/users
 Content-Type: application/json
 
 {
-  "email": "fastrapier13@yandex.ru",
-  "password": "qwerty13"
+  "email": "admin@admin.ru",
+  "password": "admin"
 }
 
 ###
-PUT http://localhost/site/4
+PUT http://localhost/users/4
 Content-Type: application/json
 
 {
@@ -21,4 +20,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost/site/2
+DELETE http://localhost/users/2

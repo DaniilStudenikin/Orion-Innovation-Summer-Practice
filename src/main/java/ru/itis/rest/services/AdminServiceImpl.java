@@ -1,6 +1,7 @@
 package ru.itis.rest.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.rest.dto.UserDto;
 import ru.itis.rest.models.User;
@@ -11,11 +12,13 @@ import java.util.List;
 import static ru.itis.rest.dto.UserDto.from;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -27,11 +30,10 @@ public class UsersServiceImpl implements UsersService {
     public void addUser(UserDto user) {
         User newUser = User.builder()
                 .email(user.getEmail())
-                .hashPassword(user.getPassword())
+                .hashPassword(passwordEncoder.encode(user.getPassword()))
                 .role(User.Role.USER)
                 .state(User.State.ACTIVE)
                 .build();
-
         usersRepository.save(newUser);
     }
 
@@ -39,7 +41,7 @@ public class UsersServiceImpl implements UsersService {
     public void updateUser(Long userId, UserDto user) {
         User userForUpdate = usersRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
         userForUpdate.setEmail(user.getEmail());
-        userForUpdate.setHashPassword(user.getPassword());
+        userForUpdate.setHashPassword(passwordEncoder.encode(user.getPassword()));
         usersRepository.save(userForUpdate);
     }
 

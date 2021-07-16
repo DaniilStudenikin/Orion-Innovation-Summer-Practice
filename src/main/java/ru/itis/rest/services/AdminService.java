@@ -4,7 +4,7 @@ import ru.itis.rest.dto.UserDto;
 
 import java.util.List;
 
-public interface UsersService {
+public interface AdminService {
     List<UserDto> getAllUsers();
 
     void addUser(UserDto user);
