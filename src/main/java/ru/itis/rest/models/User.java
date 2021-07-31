@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,8 +18,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-
     private String email;
 
     private String hashPassword;
@@ -30,8 +30,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "account")
-    private Set<Ticket> tickets;
+    @OneToOne
+    private UsersHistory usersHistory;
 
     public enum State {
         ACTIVE, BANNED

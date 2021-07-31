@@ -49,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
     public void deleteUser(Long userId) {
         User userForDelete = usersRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
         userForDelete.setIsDeleted(true);
+        usersRepository.save(userForDelete);
     }
 
     @Override
